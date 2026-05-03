@@ -8,9 +8,18 @@ import { CiFileOn } from "react-icons/ci";
 import { Separator } from "@/components/ui/separator";
 import { Hint } from "@/components/hint";
 import { BsCloudCheck } from "react-icons/bs";
-export const Navbar = () => {
+
+import { ActiveTool } from "@/features/editor/types";
+import { cn } from "@/lib/utils";
+
+interface SidebarProps {
+  activeTool: ActiveTool;
+  onChangeActiveTool: (tool: ActiveTool) => void;
+};
+
+export const Navbar = ({ activeTool, onChangeActiveTool }: SidebarProps) => {
     return (
-        <nav className="w-full flex items-center p-4 h-[68px] gap-x-8 border-b lg:pl-[34px]">
+        <nav className="w-full flex items-center p-4 h-[68] gap-x-8 border-b lg:pl-[34]">
             <Logo />
             <div className="w-full flex items-center gap-x-1 h-full">
                 <DropdownMenu modal={false}>
@@ -39,8 +48,8 @@ export const Navbar = () => {
                     <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => ""} // TODO: Add functionality
-                        className=""
+                        onClick={() => onChangeActiveTool("select")}
+                        className={cn(activeTool === "select" && "bg-gray-100")}
                     >
                         <MousePointerClick className="size-4" />
                     </Button>
@@ -72,66 +81,66 @@ export const Navbar = () => {
                         Saved
                     </div>
                 </div>
-								<div className="ml-auto flex items-center gap-x-4">
-									<DropdownMenu modal={false}>
-										<DropdownMenuTrigger asChild>
-											<Button size="sm" variant="ghost">
-												Export
-												<Download className="size-4 ml-4" />
-											</Button>
-										</DropdownMenuTrigger>
-										<DropdownMenuContent align="end" className="min-w-60">
-											<DropdownMenuItem
-												className="flex items-center gap-x-2"
-												onClick={() => {}} //TODO: Add functionality
-											>
-												<CiFileOn className="size-8" />
-												<div>
-													<p>JSON</p>
-													<p className="text-xs text-muted-foreground">
-														Save for later editing
-													</p>
-												</div>
-											</DropdownMenuItem>
-											<DropdownMenuItem
-												className="flex items-center gap-x-2"
-												onClick={() => {}} //TODO: Add functionality
-											>
-												<CiFileOn className="size-8" />
-												<div>
-													<p>PNG</p>
-													<p className="text-xs text-muted-foreground">
-														Best for sharing on the web
-													</p>
-												</div>
-											</DropdownMenuItem>
-											<DropdownMenuItem
-												className="flex items-center gap-x-2"
-												onClick={() => {}} //TODO: Add functionality
-											>
-												<CiFileOn className="size-8" />
-												<div>
-													<p>JPG</p>
-													<p className="text-xs text-muted-foreground">
-														Best for printing
-													</p>
-												</div>
-											</DropdownMenuItem>
-											<DropdownMenuItem
-												className="flex items-center gap-x-2"
-												onClick={() => {}} //TODO: Add functionality
-											>
-												<CiFileOn className="size-8" />
-												<div>
-													<p>SVG</p>
-													<p className="text-xs text-muted-foreground">
-														Best for editing in vector software
-													</p>
-												</div>
-											</DropdownMenuItem>
-										</DropdownMenuContent>
-									</DropdownMenu>
-								</div>
+                <div className="ml-auto flex items-center gap-x-4">
+                    <DropdownMenu modal={false}>
+                        <DropdownMenuTrigger asChild>
+                            <Button size="sm" variant="ghost">
+                                Export
+                                <Download className="size-4 ml-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="min-w-60">
+                            <DropdownMenuItem
+                                className="flex items-center gap-x-2"
+                                onClick={() => {}} //TODO: Add functionality
+                            >
+                                <CiFileOn className="size-8" />
+                                <div>
+                                    <p>JSON</p>
+                                    <p className="text-xs text-muted-foreground">
+                                        Save for later editing
+                                    </p>
+                                </div>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                className="flex items-center gap-x-2"
+                                onClick={() => {}} //TODO: Add functionality
+                            >
+                                <CiFileOn className="size-8" />
+                                <div>
+                                    <p>PNG</p>
+                                    <p className="text-xs text-muted-foreground">
+                                        Best for sharing on the web
+                                    </p>
+                                </div>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                className="flex items-center gap-x-2"
+                                onClick={() => {}} //TODO: Add functionality
+                            >
+                                <CiFileOn className="size-8" />
+                                <div>
+                                    <p>JPG</p>
+                                    <p className="text-xs text-muted-foreground">
+                                        Best for printing
+                                    </p>
+                                </div>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                className="flex items-center gap-x-2"
+                                onClick={() => {}} //TODO: Add functionality
+                            >
+                                <CiFileOn className="size-8" />
+                                <div>
+                                    <p>SVG</p>
+                                    <p className="text-xs text-muted-foreground">
+                                        Best for editing in vector software
+                                    </p>
+                                </div>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             </div>
         </nav>
     )
