@@ -8,7 +8,7 @@ import { Navbar } from "@/features/editor/components/navbar"
 import { Toolbar } from "@/features/editor/components/toolbar"
 import { Footer } from "@/features/editor/components/footer"
 
-import type { ActiveTool } from "@/features/editor/types"
+import { selectionDependentTools, type ActiveTool } from "@/features/editor/types"
 import { ShapeSidebar } from "@/features/editor/components/shape-sidebar"
 import { FillColorSidebar } from "@/features/editor/components/fill-color-sidebar"
 
@@ -32,7 +32,15 @@ export const Editor = () => {
     setActiveTool(tool);
   }, [activeTool]);
 
-  const { init, editor} = useEditor()
+  const onCloseSelection = useCallback(() => {
+    if (selectionDependentTools.includes(activeTool)) {
+      setActiveTool("select");
+    }
+  }, [activeTool])
+
+  const { init, editor} = useEditor({
+    clearSelectionCallback: onCloseSelection,
+  })
 
   const canvasRef = useRef(null)
   const containerRef = useRef<HTMLDivElement>(null)
