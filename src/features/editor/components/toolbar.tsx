@@ -1,10 +1,10 @@
 "use cleint"
 
+import { BsBorderWidth } from "react-icons/bs";
 import { Hint } from "@/components/hint";
 import { ActiveTool, Editor } from "../types";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 interface ToolbarProps {
   editor: Editor | undefined;
@@ -55,6 +55,20 @@ export const Toolbar = ({ editor, activeTool, onChangeActiveTool }: ToolbarProps
                     className="rounded-sm size-4 border-2 bg-white"
                     style={{ borderColor: strokeColor }}
                   />
+                </Button>
+              </Hint>
+          </div>
+          <div className="flex items-center h-full justify-center">
+              <Hint label="Stroke width" side="bottom" sideOffset={5}>
+                <Button
+                  onClick={() => onChangeActiveTool("stroke-width")}
+                  size="icon"
+                  variant="ghost"
+                  className={cn(
+                    activeTool === "stroke-width" && "bg-gray-100"
+                  )}
+                >
+                  <BsBorderWidth className="size-4" />
                 </Button>
               </Hint>
           </div>
