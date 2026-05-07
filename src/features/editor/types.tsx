@@ -179,8 +179,8 @@ export interface Editor {
   // getActiveFontFamily: () => string;
   // changeFontFamily: (value: string) => void;
   // addText: (value: string, options?: ITextboxOptions) => void;
-  // getActiveOpacity: () => number;
-  // changeOpacity: (value: number) => void;
+  getActiveOpacity: () => number;
+  changeOpacity: (value: number) => void;
   bringForward: () => void;
   sendBackwards: () => void;
   changeStrokeWidth: (value: number) => void;
