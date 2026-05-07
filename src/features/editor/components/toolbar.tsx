@@ -1,6 +1,6 @@
 "use cleint"
 
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowUp, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BsBorderWidth } from "react-icons/bs";
 import { Hint } from "@/components/hint";
@@ -18,6 +18,7 @@ interface ToolbarProps {
 export const Toolbar = ({ editor, activeTool, onChangeActiveTool }: ToolbarProps) => {
     const fillColor = editor?.getActiveFillColor();
     const strokeColor = editor?.getActiveStrokeColor();
+    const fontFamily = editor?.getActiveFontFamily();
 
     const selectedObjectType = editor?.selectedObjects[0]?.type
 
@@ -88,6 +89,28 @@ export const Toolbar = ({ editor, activeTool, onChangeActiveTool }: ToolbarProps
                 </div>
               )
             }
+
+            {isText && (
+              <div className="flex items-center h-full justify-center">
+                <Hint label="Font" side="bottom" sideOffset={5}>
+                  <Button
+                    onClick={() => onChangeActiveTool("font")}
+                    size="icon"
+                    variant="ghost"
+                    className={cn(
+                      "w-auto px-2 text-sm",
+                      activeTool === "font" && "bg-gray-100"
+                    )}
+                  >
+                    <div className="max-w-[100px] truncate">
+                      {/* {properties.fontFamily} */}
+                      {fontFamily}
+                    </div>
+                    <ChevronDown className="size-4 ml-2 shrink-0" />
+                  </Button>
+                </Hint>
+              </div>
+            )}
           <div className="flex items-center h-full justify-center">
               <Hint label="Bring forward" side="bottom" sideOffset={5}>
                 <Button

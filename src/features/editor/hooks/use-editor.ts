@@ -29,6 +29,8 @@ const buildEditor = ({
     setStrokeWidth,
     strokeDashArray,
     setStrokeDashArray,
+    fontFamily,
+    setFontFamily,
     selectedObjects
 }: BuildEditorProps): Editor => {
 
@@ -101,6 +103,18 @@ const buildEditor = ({
             // TODO: Fix workspace overflow
             const workspace = getWorkspace()
             workspace?.sendBackwards()
+        },
+
+        changeFontFamily: (value: string) => {
+            setFontFamily(value);
+            canvas.getActiveObjects().forEach((object) => {
+                if (isTextType(object.type)) {
+                    // @ts-ignore
+                    object.set({ fontFamily: value });
+                }
+            }); 
+            canvas.renderAll();
+                
         },
 
         changeFillColor: (value: string) => {
@@ -235,7 +249,17 @@ const buildEditor = ({
             addToCanvas(object);
         },
 
-        canvas,
+        getActiveFontFamily: () => {
+            const slectedObject = selectedObjects[0];
+            if (!slectedObject) {
+                return fontFamily;
+            }
+            // @ts-ignore
+            const value = slectedObject.get("fontFamily") || fontFamily;
+
+            return value as string;
+        },
+
         getActiveFillColor: () => {
             const slectedObject = selectedObjects[0];
             if (!slectedObject) {
@@ -280,6 +304,7 @@ const buildEditor = ({
             return value;
         },
 
+        canvas,
         selectedObjects
     }
 }
@@ -318,11 +343,13 @@ export const useEditor = ({
                 strokeColor,
                 strokeWidth,
                 strokeDashArray,
+                fontFamily,
                 setFillColor,
                 setStrokeColor,
                 setStrokeWidth,
                 setStrokeDashArray,
-                selectedObjects
+                selectedObjects,
+                setFontFamily
             })
         }
         return undefined
@@ -332,7 +359,8 @@ export const useEditor = ({
         strokeColor,
         strokeWidth,
         strokeDashArray,
-        selectedObjects
+        selectedObjects,
+        fontFamily
     ])
 
     const init = useCallback(({
