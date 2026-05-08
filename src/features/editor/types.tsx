@@ -186,8 +186,8 @@ export interface Editor {
   // changeImageFilter: (value: string) => void;
   // addImage: (value: string) => void;
   // delete: () => void;
-  // changeFontSize: (value: number) => void;
-  // getActiveFontSize: () => number;
+  changeFontSize: (value: number) => void;
+  getActiveFontSize: () => number;
   changeTextAlign: (value: string) => void;
   getActiveTextAlign: () => string;
   changeFontUnderline: (value: boolean) => void;

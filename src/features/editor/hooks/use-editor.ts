@@ -15,7 +15,8 @@ import {
     EditorHookProps,
     STROKE_DASH_ARRAY,
     TEXT_OPTIONS,
-    FONT_WEIGHT
+    FONT_WEIGHT,
+    FONT_SIZE
 } from "@/features/editor/types";
 import { useCanvasEvents } from "@/features/editor/hooks/use-canvas-events";
 import { isTextType } from "@/features/editor/utils";
@@ -413,6 +414,29 @@ const buildEditor = ({
             // @ts-ignore
             // Faulty TS library, textAlign exists
             const value = slectedObject.get("textAlign") || "left";
+            return value;
+        },
+
+        changeFontSize: (value: number) => {
+            canvas.getActiveObjects().forEach((object) => {
+                if (isTextType(object.type)) {
+                    // @ts-ignore
+                    // Faulty TS library, fontSize exists
+                    object.set({ fontSize: value })
+                }
+            })
+            canvas.renderAll()
+        },
+        getActiveFontSize: () => {
+            const slectedObject = selectedObjects[0];
+
+            if (!slectedObject) {
+                return FONT_SIZE;
+            }
+
+            // @ts-ignore
+            // Faulty TS library, fontSize exists
+            const value = slectedObject.get("fontSize") || FONT_SIZE;
             return value;
         },
 
