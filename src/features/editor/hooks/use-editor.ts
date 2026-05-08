@@ -14,7 +14,8 @@ import {
     STROKE_WIDTH,
     EditorHookProps,
     STROKE_DASH_ARRAY,
-    TEXT_OPTIONS
+    TEXT_OPTIONS,
+    FONT_WEIGHT
 } from "@/features/editor/types";
 import { useCanvasEvents } from "@/features/editor/hooks/use-canvas-events";
 import { isTextType } from "@/features/editor/utils";
@@ -65,6 +66,71 @@ const buildEditor = ({
           })
           addToCanvas(object)
         },
+        
+        changeFontUnderline: (value: boolean) => {
+            canvas.getActiveObjects().forEach((object) => {
+                if (isTextType(object.type)) {
+                    // @ts-ignore
+                    object.set({ underline: value })
+                }
+            })
+            canvas.renderAll()
+        },
+        getActiveFontUnderline: () => {
+            const slectedObject = selectedObjects[0];
+            if (!slectedObject) {
+                return false;
+            }
+
+            // @ts-ignore
+            const value = slectedObject.get("underline") || false;
+
+            return value;
+        },
+
+        changeFontLinethrough: (value: boolean) => {
+            canvas.getActiveObjects().forEach((object) => {
+                if (isTextType(object.type)) {
+                    // @ts-ignore
+                    object.set({ linethrough: value })
+                }
+            })
+            canvas.renderAll()
+        },
+        getActiveFontLinethrough: () => {
+            const slectedObject = selectedObjects[0];
+            if (!slectedObject) {
+                return false;
+            }
+
+            // @ts-ignore
+            const value = slectedObject.get("linethrough") || false;
+
+            return value;
+        },
+
+        changeFontStyle: (value: string) => {
+            canvas.getActiveObjects().forEach((object) => {
+                if (isTextType(object.type)) {
+                    // @ts-ignore
+                    object.set({ fontStyle: value })
+                }
+            })
+            canvas.renderAll()
+        },
+
+        getActiveFontStyle: () => {
+            const slectedObject = selectedObjects[0];
+            if (!slectedObject) {
+                return "notmal";
+            }
+
+            // @ts-ignore
+            const value = slectedObject.get("fontStyle") || "notmal";
+
+            return value;
+        },
+
         getActiveOpacity: () => {
             const slectedObject = selectedObjects[0];
             if (!slectedObject) {
@@ -75,6 +141,7 @@ const buildEditor = ({
 
             return value;
         },
+
         changeOpacity: (value: number) => {
             canvas.getActiveObjects().forEach((object) => {
                 object.set({ opacity: value })
@@ -301,6 +368,51 @@ const buildEditor = ({
 
             const value = slectedObject.get("strokeDashArray") || strokeDashArray;
 
+            return value;
+        },
+
+        changeFontWeight: (value: number) => {
+            canvas.getActiveObjects().forEach((object) => {
+                if (isTextType(object.type)) {
+                    // @ts-ignore
+                    object.set({ fontWeight: value })
+                }
+            })
+            canvas.renderAll()
+        },
+
+        getActiveFontWeight: () => {
+            const slectedObject = selectedObjects[0];
+
+            if (!slectedObject) {
+                return FONT_WEIGHT;
+            }
+
+            // @ts-ignore
+            const value = slectedObject.get("fontWeight") || FONT_WEIGHT;
+            return value;
+        },
+
+        changeTextAlign: (value: string) => {
+            canvas.getActiveObjects().forEach((object) => {
+                if (isTextType(object.type)) {
+                    // @ts-ignore
+                    // Faulty TS library, textAlign exists
+                    object.set({ textAlign: value })
+                }
+            })
+            canvas.renderAll()
+        },
+        getActiveTextAlign: () => {
+            const slectedObject = selectedObjects[0];
+
+            if (!slectedObject) {
+                return "left";
+            }
+
+            // @ts-ignore
+            // Faulty TS library, textAlign exists
+            const value = slectedObject.get("textAlign") || "left";
             return value;
         },
 
