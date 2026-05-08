@@ -59,6 +59,15 @@ const buildEditor = ({
     }
 
     return {
+        delete: () => {
+            // getActiveObjects and remove
+            canvas.getActiveObjects().forEach((object) => canvas.remove(object))
+            // 丟棄當前選取
+            canvas.discardActiveObject()
+            // 重新渲染
+            canvas.renderAll()
+        },
+
         addText: (value, options) => {
           const object = new fabric.Textbox(value, {
             ...TEXT_OPTIONS,

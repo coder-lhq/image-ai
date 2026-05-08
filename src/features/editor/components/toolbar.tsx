@@ -1,7 +1,7 @@
 "use cleint"
 
 import { useState } from "react";
-import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, ChevronDown } from "lucide-react";
+import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, ChevronDown, Trash } from "lucide-react";
 import { FaBold, FaItalic, FaStrikethrough, FaUnderline } from "react-icons/fa";
 import { BsBorderWidth } from "react-icons/bs";
 import { RxTransparencyGrid } from "react-icons/rx";
@@ -381,6 +381,17 @@ export const Toolbar = ({ editor, activeTool, onChangeActiveTool }: ToolbarProps
                   )}
                 >
                   <RxTransparencyGrid className="size-4" />
+                </Button>
+              </Hint>
+          </div>
+          <div className="flex items-center h-full justify-center">
+              <Hint label="Delete" side="bottom" sideOffset={5}>
+                <Button
+                  onClick={() => editor?.delete()}
+                  size="icon"
+                  variant="ghost"
+                >
+                  <Trash className="size-4" />
                 </Button>
               </Hint>
           </div> 
