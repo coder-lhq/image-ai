@@ -10,3 +10,5 @@
 + @hono/zod-validator
 + @tanstack/react-query
 + unsplash-js
++ uploadthing
++ @uploadthing/react

@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import { AlertTriangle, Loader } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
@@ -6,8 +8,7 @@ import { ActiveTool, Editor } from "@/features/editor/types";
 import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-close";
 import { ToolSidebarHeader } from "@/features/editor/components/tool-sidebar-header";
 import { useGetImages } from "@/features/images/api/use-get-images";
-import Image from "next/image";
-import Link from "next/link";
+import { UploadButton } from "@/lib/uploadthing";
 
 interface ImagesSidebarProps {
   editor?: Editor | undefined;
@@ -39,6 +40,21 @@ export const ImagesSidebar = ({
         title="Image"
         description="Add image to your canvas"
       />
+      <div className="p-4 border-b">
+        <UploadButton
+          appearance={{
+            button: "w-full text-sm font-medium",
+            allowedContent: "hidden"
+          }}
+          content={{
+            button: "Upload Image"
+          }}
+          endpoint="imageUploader"
+          onClientUploadComplete={(res) => {
+            editor?.addImage(res[0].ufsUrl);
+          }}
+        />
+      </div>
       {isLoading && (
         <div className="flex items-center justify-center flex-1">
           <Loader className="size-4 text-muted-foreground animate-spin" />
@@ -52,7 +68,7 @@ export const ImagesSidebar = ({
           </p>
         </div>
       )}
-      <ScrollArea>
+      <ScrollArea className="h-[calc(100%-68px)]">
         <div className="p-4">
           <div className="grid grid-cols-2 gap-4">
             {data && data.images.map((image) => {
