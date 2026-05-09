@@ -5,3 +5,6 @@
 + Fabric.js
 + react-icons
 + react-color
++ hono
++ zod
++ @hono/zod-validator
