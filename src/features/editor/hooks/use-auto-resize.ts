@@ -7,7 +7,7 @@ interface UseAutoResizeProps {
 }
 export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
 
-    const uatoZoom = useCallback(() => {
+    const autoZoom = useCallback(() => {
         if (!canvas && !container) return
 
         const width = container?.offsetWidth
@@ -61,7 +61,7 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
         if (canvas && container) { 
             resizeObserver = new ResizeObserver(() => {
                 console.log("resizing");
-                uatoZoom()
+                autoZoom()
             })
 
             resizeObserver.observe(container)
@@ -73,5 +73,7 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
             }
         }
 
-    }, [canvas, container, uatoZoom])
+    }, [canvas, container, autoZoom])
+
+    return { autoZoom }
 }

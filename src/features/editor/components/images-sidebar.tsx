@@ -23,7 +23,7 @@ export const ImagesSidebar = ({
 }: ImagesSidebarProps) => {
   const { data, isLoading, isError } = useGetImages()
 
-  console.log("data======", data);
+  // console.log("data======", data);
   
   const onClose = () => {
     onChangeActiveTool("select");

@@ -24,6 +24,7 @@ import { useClipboard } from "@/features/editor/hooks/use-clipboard";
 
 const buildEditor = ({ 
     canvas,
+    autoZoom,
     copy,
     paste,
     fillColor,
@@ -62,6 +63,30 @@ const buildEditor = ({
     }
 
     return {
+        getWorkspace,
+        changeSize: (value: { width: number; height: number }) => {
+            const workspace = getWorkspace();
+
+            workspace?.set(value);
+            autoZoom();
+            // TODO: save
+        },
+        changeBackground: (value: string) => {
+            const workspace = getWorkspace();
+            workspace?.set({ fill: value });
+            canvas.renderAll();
+            // TODO: save
+        },
+        enableDrawingMode: () => {
+            canvas.discardActiveObject();
+            canvas.renderAll();
+            canvas.isDrawingMode = true;
+            canvas.freeDrawingBrush.width = strokeWidth;
+            canvas.freeDrawingBrush.color = strokeColor;
+        },
+        disableDrawingMode: () => {
+            canvas.isDrawingMode = false;
+        },
         onCopy: () => copy(),
         onPaste: () => paste(),
         changeImageFilter: (value: string) => {
@@ -248,6 +273,7 @@ const buildEditor = ({
                 }
                 object.set({ stroke: value });
             }); 
+            canvas.freeDrawingBrush.color = strokeColor;
             canvas.renderAll();
         },
 
@@ -256,6 +282,7 @@ const buildEditor = ({
             canvas.getActiveObjects().forEach((object) => {
                 object.set({ strokeWidth: value });
             }); 
+            canvas.freeDrawingBrush.width = strokeWidth;
             canvas.renderAll();
         },
 
@@ -504,7 +531,7 @@ export const useEditor = ({
 
     const {copy, paste } = useClipboard({ canvas })
 
-    useAutoResize({
+    const { autoZoom } = useAutoResize({
         canvas,
         container
     })
@@ -519,6 +546,7 @@ export const useEditor = ({
     const editor = useMemo(() => {
         if (canvas) {
             return buildEditor({ 
+                autoZoom,
                 copy,
                 paste,
                 canvas,
@@ -537,6 +565,7 @@ export const useEditor = ({
         }
         return undefined
     }, [
+        autoZoom,
         copy,
         paste,
         canvas,
