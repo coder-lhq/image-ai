@@ -19,6 +19,7 @@ import { FontSidebar } from "@/features/editor/components/font-sidebar"
 import { ImagesSidebar } from "@/features/editor/components/images-sidebar"
 import { FilterSidebar } from "@/features/editor/components/filter-sidebar"
 import { AiSidebar } from "@/features/editor/components/ai-sidebar"
+import { RemoveBgSidebar } from "@/features/editor/components/remove-bg-sidebar"
 
 export const Editor = () => {
 
@@ -133,6 +134,11 @@ export const Editor = () => {
           onChangeActiveTool={onChangeActiveTool}
         />
         <AiSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+        <RemoveBgSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}

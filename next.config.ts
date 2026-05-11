@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "gpxe1lh3rg.ufs.sh"
+      },
+      {
+        protocol: "https",
         hostname: "replicate.delivery"
       }
     ]
