@@ -9,15 +9,16 @@ import { Separator } from "@/components/ui/separator";
 import { Hint } from "@/components/hint";
 import { BsCloudCheck } from "react-icons/bs";
 
-import { ActiveTool } from "@/features/editor/types";
+import { ActiveTool, Editor } from "@/features/editor/types";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
+  editor: Editor | undefined;
   activeTool: ActiveTool;
   onChangeActiveTool: (tool: ActiveTool) => void;
 };
 
-export const Navbar = ({ activeTool, onChangeActiveTool }: SidebarProps) => {
+export const Navbar = ({ editor, activeTool, onChangeActiveTool }: SidebarProps) => {
     return (
         <nav className="w-full flex items-center p-4 h-[68] gap-x-8 border-b lg:pl-[34]">
             <Logo />
@@ -56,20 +57,20 @@ export const Navbar = ({ activeTool, onChangeActiveTool }: SidebarProps) => {
                 </Hint>
                 <Hint label="Undo" side="bottom" sideOffset={10}>
                     <Button
+                        disabled={!editor?.canUndo()}
                         variant="ghost"
                         size="icon"
-                        onClick={() => ""} // TODO: Add functionality
-                        className=""
+                        onClick={() => editor?.onUndo()}
                     >
                         <Undo2 className="size-4" />
                     </Button>
                 </Hint>
                 <Hint label="Redo" side="bottom" sideOffset={10}>
                     <Button
+                        disabled={!editor?.canRedo()}
                         variant="ghost"
                         size="icon"
-                        onClick={() => ""} // TODO: Add functionality
-                        className=""
+                        onClick={() => editor?.onRedo()}
                     >
                         <Redo2 className="size-4" />
                     </Button>
