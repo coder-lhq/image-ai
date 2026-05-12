@@ -16,3 +16,9 @@
 + uuid
 + use-file-picker
 + next-auth@beta
++ drizzle-orm
++ @neondatabase/serverless
++ drizzle-kit
++ @auth/drizzle-adapter
++ drizzle-orm
++ dotenv
