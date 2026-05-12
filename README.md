@@ -12,3 +12,4 @@
 + unsplash-js
 + uploadthing
 + @uploadthing/react
++ react-use
