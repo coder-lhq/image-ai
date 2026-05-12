@@ -15,3 +15,4 @@
 + react-use
 + uuid
 + use-file-picker
++ next-auth@beta
