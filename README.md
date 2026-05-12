@@ -13,3 +13,5 @@
 + uploadthing
 + @uploadthing/react
 + react-use
++ uuid
++ use-file-picker
