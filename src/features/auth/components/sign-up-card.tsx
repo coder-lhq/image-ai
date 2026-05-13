@@ -107,14 +107,14 @@ export const SignUpCard = () => {
         <Separator />
         <div className="flex flex-col gap-y-2.5">
           <Button
-            disabled={mutation.isPending}
+            disabled={true}
             onClick={() => onProviderSignUp("google")}
             variant="outline"
             size="lg"
             className="w-full relative"
           >
             <FcGoogle className="mr-2 size-5" />
-            Continue with Google
+            <span className="line-through">Continue with Google</span>
           </Button>
           <Button
             disabled={mutation.isPending}
