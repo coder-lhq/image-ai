@@ -22,3 +22,6 @@
 + @auth/drizzle-adapter
 + drizzle-orm
 + dotenv
++ bcryptjs
++ @types/bcryptjs
++ sonner

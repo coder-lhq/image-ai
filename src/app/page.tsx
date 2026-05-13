@@ -4,10 +4,11 @@ import { protectServer } from "@/features/auth/utils";
 export default async function Home() {
   
   await protectServer();
+  const session = await auth()
 
   return (
     <div>
-      You are logged in
+      { JSON.stringify(session) }
     </div>
   );
 }
