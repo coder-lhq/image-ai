@@ -11,6 +11,7 @@ import { BsCloudCheck } from "react-icons/bs";
 
 import { ActiveTool, Editor } from "@/features/editor/types";
 import { cn } from "@/lib/utils";
+import { UserButton } from '@/features/auth/components/user-button';
 
 interface SidebarProps {
   editor: Editor | undefined;
@@ -156,6 +157,7 @@ export const Navbar = ({ editor, activeTool, onChangeActiveTool }: SidebarProps)
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    <UserButton />
                 </div>
             </div>
         </nav>
