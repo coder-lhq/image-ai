@@ -25,3 +25,5 @@
 + bcryptjs
 + @types/bcryptjs
 + sonner
++ @hono/auth-js
++ @auth/core

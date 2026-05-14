@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
+  env: {
+    AUTH_SECRET: process.env.AUTH_SECRET,
+  },
   images: {
     remotePatterns: [
       {

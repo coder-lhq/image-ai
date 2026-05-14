@@ -44,14 +44,14 @@ export const ImagesSidebar = ({
         <UploadButton
           appearance={{
             button: "w-full text-sm font-medium",
-            allowedContent: "hidden"
+            // allowedContent: "hidden"
           }}
           content={{
             button: "Upload Image"
           }}
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
-            editor?.addImage(res[0].ufsUrl);
+            editor?.addImage(res[0].url);
           }}
         />
       </div>

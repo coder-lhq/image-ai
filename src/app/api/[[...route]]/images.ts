@@ -1,11 +1,12 @@
 import { unsplash } from "@/lib/unsplash";
+import { verifyAuth } from "@hono/auth-js";
 import { Hono } from "hono";
 
 const DEFAULT_COUNT = 50;
 const DEFAULT_COLLECTION_IDS=['317099']
 
 const app = new Hono()
-    .get("/", async (c) => {
+    .get("/", verifyAuth(), async (c) => {
         console.log("useGetImages==========");
         
         const images = await unsplash.photos.getRandom({
