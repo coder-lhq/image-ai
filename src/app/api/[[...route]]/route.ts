@@ -6,6 +6,7 @@ import images from './images'
 import ai from './ai'
 import users from './users'
 import test from './test'
+import projects from './projects'
 import authConfig from "@/auth.config";
 
 export const runtime = "nodejs";
@@ -23,6 +24,7 @@ const app = new Hono().basePath("/api");
 app.use("*", initAuthConfig(getAuthConfig))
 const routes = app
     .route("/ai", ai)
+    .route("/projects", projects)
     .route("/test", test)
     .route("/users", users)
     .route("/images", images)

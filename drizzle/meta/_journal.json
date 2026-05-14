@@ -15,6 +15,13 @@
       "when": 1778655996897,
       "tag": "0001_nebulous_sunfire",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1778742523070,
+      "tag": "0002_worthless_leader",
+      "breakpoints": true
     }
   ]
 }
