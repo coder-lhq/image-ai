@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { AlertTriangle, Loader } from "lucide-react";
+import { AlertTriangle, Crown, Loader } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +9,7 @@ import { ToolSidebarHeader } from "@/features/editor/components/tool-sidebar-hea
 import { useGetTemplates } from "@/features/projects/api/use-get-templates";
 import { useConfirm } from "@/hooks/use-confirm";
 import { ResponseType } from "@/features/projects/api/use-get-projects";
+import { usePaywall } from "@/features/subscriptions/hooks/usePaywall";
 
 interface TemplateSidebarProps {
   editor?: Editor | undefined;
@@ -21,6 +22,7 @@ export const TemplateSidebar = ({
   activeTool,
   onChangeActiveTool,
 }: TemplateSidebarProps) => {
+  const { shouldBlock, triggerPaywall } = usePaywall();
 
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
@@ -37,6 +39,11 @@ export const TemplateSidebar = ({
   };
 
   const onClick = async (template: ResponseType["data"][0]) => {
+    if (template.isPro && shouldBlock) {
+      triggerPaywall();
+      return;
+    }
+
     const ok = await confirm();
 
     if (ok) {
@@ -86,6 +93,11 @@ export const TemplateSidebar = ({
                     alt={template.name || ""}
                     className="object-cover"
                   />
+                  {template.isPro && (
+                    <div className="absolute top-2 right-2 size-8 items-center flex justify-center bg-black/50 rounded-full">
+                      <Crown className="size-4 fill-yellow-500 text-yellow-500" />
+                    </div>
+                  )}
                   <div
                     className="opacity-0 group-hover:opacity-100 absolute left-0 bottom-0 w-full text-[10px] truncate text-white p-1 bg-black/50 text-left"
                   >

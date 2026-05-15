@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import { Modals } from "@/components/modals";
 
 const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
 
@@ -43,6 +44,7 @@ export default async function RootLayout({
           <body className="min-h-full flex flex-col">
             <Providers>
               <Toaster />
+              <Modals />
               {children}
             </Providers>
           </body>

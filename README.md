@@ -29,3 +29,4 @@
 + @auth/core
 + lodash
 + @types/lodash
++ zustand
