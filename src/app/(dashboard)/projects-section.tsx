@@ -6,9 +6,30 @@ import { useGetProjects } from "@/features/projects/api/use-get-projects";
 import { AlertTriangle, CopyIcon, FileIcon, Loader, MoreHorizontal, Search, Trash } from "lucide-react";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useDuplicateProject } from "@/features/projects/api/use-duplicate-project";
+import { useDeleteProject } from "@/features/projects/api/use-delete-project";
+import { useConfirm } from "@/hooks/use-confirm";
 
 export const ProjectSection = () => {
+    const [ConfirmDialog, confirm] = useConfirm(
+        "Are you sure?",
+        "You are about to delete this project.",
+    );
+    const duplicateMutation = useDuplicateProject();
+    const removeMutation = useDeleteProject();
     const router = useRouter();
+
+    const onCopy = (id: string) => {
+        duplicateMutation.mutate({ id });
+    };
+
+    const onDelete = async (id: string) => {
+        const ok = await confirm();
+
+        if (ok) {
+            removeMutation.mutate({ id });
+        }
+    };
 
     const {
         data,
@@ -68,7 +89,7 @@ export const ProjectSection = () => {
 
   return (
     <div className="space-y-4"> 
-      {/* <ConfirmDialog /> */}
+      <ConfirmDialog />
       <h3 className="font-semibold text-lg">
         Recent projects
       </h3>
@@ -113,16 +134,16 @@ export const ProjectSection = () => {
                       <DropdownMenuContent align="end" className="w-60">
                         <DropdownMenuItem
                           className="h-10 cursor-pointer"
-                        //   disabled={duplicateMutation.isPending}
-                        //   onClick={() => onCopy(project.id)}
+                          disabled={duplicateMutation.isPending}
+                          onClick={() => onCopy(project.id)}
                         >
                           <CopyIcon className="size-4 mr-2" />
                           Make a copy
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           className="h-10 cursor-pointer"
-                        //   disabled={removeMutation.isPending}
-                        //   onClick={() => onDelete(project.id)}
+                          disabled={removeMutation.isPending}
+                          onClick={() => onDelete(project.id)}
                         >
                           <Trash className="size-4 mr-2" />
                           Delete
