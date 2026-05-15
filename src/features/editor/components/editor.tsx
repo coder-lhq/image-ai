@@ -20,6 +20,7 @@ import { OpacitySidebar } from "@/features/editor/components/opacity-sidebar"
 import { TextSidebar } from "@/features/editor/components/text-sidebar"
 import { FontSidebar } from "@/features/editor/components/font-sidebar"
 import { ImagesSidebar } from "@/features/editor/components/images-sidebar"
+import { TemplateSidebar } from "@/features/editor/components/template-sidebar"
 import { FilterSidebar } from "@/features/editor/components/filter-sidebar"
 import { AiSidebar } from "@/features/editor/components/ai-sidebar"
 import { RemoveBgSidebar } from "@/features/editor/components/remove-bg-sidebar"
@@ -152,6 +153,11 @@ export const Editor = ({ initialData }: EditorProps) => {
         
         />
         <ImagesSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+        <TemplateSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
