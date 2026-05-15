@@ -27,3 +27,5 @@
 + sonner
 + @hono/auth-js
 + @auth/core
++ lodash
++ @types/lodash

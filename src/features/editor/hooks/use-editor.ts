@@ -1,5 +1,5 @@
 import { fabric } from "fabric";
-import { useCallback, useState, useMemo } from "react";
+import { useCallback, useState, useMemo, useRef } from "react";
 import { useAutoResize } from "@/features/editor/hooks/use-auto-resize";
 import {
     BuildEditorProps,
@@ -25,6 +25,7 @@ import { useClipboard } from "@/features/editor/hooks/use-clipboard";
 import { useHistory } from "@/features/editor/hooks/use-history";
 import { useHotkeys } from "@/features/editor/hooks/use-hotkeys";
 import { useWindowEvents } from "@/features/editor/hooks/use-window-events";
+import { useLoadState } from "@/features/editor/hooks/use-load-status"
 
 const buildEditor = ({
     save, 
@@ -615,8 +616,15 @@ const buildEditor = ({
 }
 
 export const useEditor = ({
-    clearSelectionCallback
+    defaultState,
+    defaultHeight,
+    defaultWidth,
+    clearSelectionCallback,
+    saveCallback,
 }: EditorHookProps) => {
+    const initialState = useRef(defaultState);
+    const initialWidth = useRef(defaultWidth);
+    const initialHeight = useRef(defaultHeight);
     const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
     const [container, setContainer] = useState<HTMLDivElement | null>(null)
     const [selectedObjects, setSelectedObjects] = useState<fabric.Object[]>([])
@@ -637,7 +645,10 @@ export const useEditor = ({
         redo,
         canvasHistory,
         setHistoryIndex,
-     } = useHistory({ canvas });
+     } = useHistory({ 
+        canvas,
+        saveCallback
+    });
 
     const {copy, paste } = useClipboard({ canvas })
 
@@ -660,6 +671,14 @@ export const useEditor = ({
         paste,
         save,
         canvas,
+    });
+
+    useLoadState({
+        canvas,
+        autoZoom,
+        initialState,
+        canvasHistory,
+        setHistoryIndex,
     });
 
 
@@ -727,8 +746,8 @@ export const useEditor = ({
 
         // create initial workspace
         const initialWorkspace = new fabric.Rect({
-            width: 900,
-            height: 1200,
+            width: initialWidth.current,
+            height: initialHeight.current,
             name: "clip",
             fill: "white",
             selectable: false,
