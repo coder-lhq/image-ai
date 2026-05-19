@@ -7,6 +7,7 @@ import ai from './ai'
 import users from './users'
 import test from './test'
 import projects from './projects'
+import subscriptions from "./subscriptions"
 import authConfig from "@/auth.config";
 
 export const runtime = "nodejs";
@@ -28,6 +29,7 @@ const routes = app
     .route("/test", test)
     .route("/users", users)
     .route("/images", images)
+    .route("/subscriptions", subscriptions)
 
 export const GET = handle(app);
 export const POST = handle(app)

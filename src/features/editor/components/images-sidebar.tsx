@@ -68,7 +68,7 @@ export const ImagesSidebar = ({
           </p>
         </div>
       )}
-      <ScrollArea className="h-[calc(100%-68px)]">
+      <ScrollArea className="h-[calc(100%-168emepx)]">
         <div className="p-4">
           <div className="grid grid-cols-2 gap-4">
             {data && data.images.map((image) => {

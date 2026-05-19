@@ -30,3 +30,4 @@
 + lodash
 + @types/lodash
 + zustand
++ stripe
