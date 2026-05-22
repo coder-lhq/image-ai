@@ -16,7 +16,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Crown, Loader } from "lucide-react";
 
+import { useTranslations } from 'next-intl';
+
 export const UserButton = () => {
+
+    const t = useTranslations();
 
     const session = useSession();
 
@@ -55,12 +59,12 @@ export const UserButton = () => {
                 className="h-10"
             >
                 {/* <CreditCard className="size-4 mr-2" /> */}
-                Billing
+                {t("Billing")}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="h-10" onClick={() => signOut()}>
                 {/* <LogOut className="size-4 mr-2" /> */}
-                Log out
+                {t("Log out")}
             </DropdownMenuItem>
         </DropdownMenuContent>
         </DropdownMenu>

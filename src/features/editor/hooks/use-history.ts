@@ -3,6 +3,8 @@ import { useCallback, useRef, useState } from "react";
 
 import { JSON_KEYS } from "@/features/editor/types";
 
+const MAX_HISTORY_ENTRIES = 50;
+
 interface UseHistoryProps {
   canvas: fabric.Canvas | null;
   saveCallback?: (values: {
@@ -32,8 +34,22 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
     const json = JSON.stringify(currentState);
 
     if (!skip && !skipSave.current) {
-      canvasHistory.current.push(json);
-      setHistoryIndex(canvasHistory.current.length - 1);
+      const nextHistory = canvasHistory.current
+        .slice(0, historyIndex + 1)
+        .filter((entry, index, entries) => {
+          return index !== entries.length - 1 || entry !== json;
+        });
+
+      if (nextHistory[nextHistory.length - 1] !== json) {
+        nextHistory.push(json);
+      }
+
+      if (nextHistory.length > MAX_HISTORY_ENTRIES) {
+        nextHistory.splice(0, nextHistory.length - MAX_HISTORY_ENTRIES);
+      }
+
+      canvasHistory.current = nextHistory;
+      setHistoryIndex(nextHistory.length - 1);
     }
 
     const workspace = canvas
@@ -46,6 +62,7 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
   }, 
   [
     canvas,
+    historyIndex,
     saveCallback,
   ]);
 

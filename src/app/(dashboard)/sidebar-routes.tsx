@@ -6,8 +6,11 @@ import { CreditCard, Crown, Home, MessageCircleQuestion } from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
 import { usePathname } from "next/navigation";
 
+import { useTranslations } from 'next-intl';
+
 export const SidebarRoutes = () => {
     const pathname = usePathname()
+    const t = useTranslations();
 
     return (
         <div className="flex flex-col gap-y-4 flex-1">
@@ -20,7 +23,7 @@ export const SidebarRoutes = () => {
                     size="lg"
                 >
                 <Crown className="mr-2 size-4 fill-yellow-500 text-yellow-500" />
-                Upgrade to Image AI Pro
+                {t('Upgrade to Image AI Pro')}
                 </Button>
             </div>
             <div className="px-3">
@@ -30,7 +33,7 @@ export const SidebarRoutes = () => {
                 <SidebarItem
                     href="/"
                     icon={Home}
-                    label="Home"
+                    label={t('Home')}
                     isActive={pathname === "/"}
                 />
             </ul>
@@ -41,13 +44,13 @@ export const SidebarRoutes = () => {
                 <SidebarItem
                     href={pathname}
                     icon={CreditCard}
-                    label="Billing"
+                    label={t('Billing')}
                     onClick={() => {}}
                 />
                 <SidebarItem
                     href="mailto:support@codewithantonio.com"
                     icon={MessageCircleQuestion}
-                    label="Get Help"
+                    label={t('Get Help')}
                 />
             </ul>
         </div>

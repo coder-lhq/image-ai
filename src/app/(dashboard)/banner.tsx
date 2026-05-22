@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { useCreateProject } from "@/features/projects/api/use-create-projects";
+import { useTranslations } from 'next-intl';
 
 export const Banner = () => {
   const router = useRouter()
   const mutation = useCreateProject()
+  const t = useTranslations();
 
   const onClick = () => {
     mutation.mutate(
@@ -33,10 +35,10 @@ export const Banner = () => {
       </div>
       <div className="flex flex-col gap-y-2">
         <h1 className="text-xl md:text-3xl font-semibold">
-          Visualize your ideas with Image AI
+          {t("Visualize your ideas with Image AI")}
         </h1>
         <p className="text-xs md:text-sm mb-2">
-          Turn inspiration into design in no time. Simply upload an image and let AI do the rest.
+         {t("Turn inspiration into design in no time Simply upload an image and let AI do the rest")}
         </p>
         <Button
           disabled={mutation.isPending}
@@ -44,7 +46,7 @@ export const Banner = () => {
           variant="secondary"
           className="w-40"
         >
-          Start creating
+          {t("Start creating")}
           <ArrowRight className="size-4 ml-2" />
         </Button>
       </div>

@@ -9,10 +9,13 @@ import { useCreateProject } from "@/features/projects/api/use-create-projects";
 import { TemplateCard } from "./template-card";
 import { usePaywall } from "@/features/subscriptions/hooks/usePaywall";
 
+import { useTranslations } from 'next-intl';
+
 export const TemplatesSection = () => {
   const { shouldBlock, triggerPaywall } = usePaywall()
   const router = useRouter();
   const mutation = useCreateProject();
+  const t = useTranslations();
   const { 
     data, 
     isLoading, 
@@ -44,7 +47,7 @@ export const TemplatesSection = () => {
     return (
       <div className="space-y-4">
         <h3 className="font-semibold text-lg">
-          Start from a template
+          {t("Start from a template")}
         </h3>
         <div className="flex items-center justify-center h-32">
           <Loader className="size-6 text-muted-foreground animate-spin" />
@@ -57,12 +60,12 @@ export const TemplatesSection = () => {
     return (
       <div className="space-y-4">
         <h3 className="font-semibold text-lg">
-          Start from a template
+          {t("Start from a template")}
         </h3>
         <div className="flex flex-col gap-y-4 items-center justify-center h-32">
           <TriangleAlert className="size-6 text-muted-foreground" />
           <p>
-            Failed to load templates
+            {}{t("Failed to load templates")}
           </p>
         </div>
       </div>
@@ -76,7 +79,7 @@ export const TemplatesSection = () => {
   return (
     <div>
       <h3 className="font-semibold text-lg">
-        Start from a template
+        {t("Start from a template")}
       </h3>
       <div className="grid grid-cols-2 md:grid-cols-4 mt-4 gap-4">
         {data?.map((template) => (

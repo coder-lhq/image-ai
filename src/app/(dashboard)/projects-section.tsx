@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useDuplicateProject } from "@/features/projects/api/use-duplicate-project";
 import { useDeleteProject } from "@/features/projects/api/use-delete-project";
 import { useConfirm } from "@/hooks/use-confirm";
+import { useTranslations } from 'next-intl';
 
 export const ProjectSection = () => {
     const [ConfirmDialog, confirm] = useConfirm(
@@ -18,6 +19,7 @@ export const ProjectSection = () => {
     const duplicateMutation = useDuplicateProject();
     const removeMutation = useDeleteProject();
     const router = useRouter();
+    const t = useTranslations();
 
     const onCopy = (id: string) => {
         duplicateMutation.mutate({ id });
@@ -43,7 +45,7 @@ export const ProjectSection = () => {
     return (
       <div className="space-y-4">
         <h3 className="font-semibold text-lg">
-          Recent projects
+          {t("Recent projects")}
         </h3>
         <div className="flex flex-col gap-y-4 items-center justify-center h-32">
           <Loader className="size-6 animate-spin text-muted-foreground" />
@@ -56,12 +58,12 @@ export const ProjectSection = () => {
     return (
       <div className="space-y-4">
         <h3 className="font-semibold text-lg">
-          Recent projects
+          {t("Recent projects")}
         </h3>
         <div className="flex flex-col gap-y-4 items-center justify-center h-32">
           <AlertTriangle className="size-6 text-muted-foreground" />
           <p className="text-muted-foreground text-sm">
-            Failed to load projects
+            {t("Failed to load projects")}
           </p>
         </div>
       </div>
@@ -75,12 +77,12 @@ export const ProjectSection = () => {
     return (
       <div className="space-y-4">
         <h3 className="font-semibold text-lg">
-          Recent projects
+          {t("Recent projects")}
         </h3>
         <div className="flex flex-col gap-y-4 items-center justify-center h-32">
           <Search className="size-6 text-muted-foreground" />
           <p className="text-muted-foreground text-sm">
-            No projects found
+            {t("No projects found")}
           </p>
         </div>
       </div>
@@ -91,7 +93,7 @@ export const ProjectSection = () => {
     <div className="space-y-4"> 
       <ConfirmDialog />
       <h3 className="font-semibold text-lg">
-        Recent projects
+        {t("Recent projects")}
       </h3>
       <Table>
         <TableBody>
@@ -164,7 +166,7 @@ export const ProjectSection = () => {
             onClick={() => fetchNextPage()}
             disabled={isFetchingNextPage}
           >
-            Load more
+            {t("Load more")}
           </Button>
         </div>
       )}

@@ -38,6 +38,7 @@
     "material-colors": "^1.2.6",
     "next": "16.2.4",
     "next-auth": "5.0.0-beta.31",
+    "next-intl": "^4.12.0",
     "radix-ui": "^1.4.3",
     "react": "19.2.4",
     "react-color": "^2.19.3",

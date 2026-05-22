@@ -7,6 +7,8 @@ import { Providers } from "@/components/providers";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { Modals } from "@/components/modals";
+import {NextIntlClientProvider} from 'next-intl';
+import {getLocale, getMessages} from 'next-intl/server';
 
 const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
 
@@ -35,18 +37,23 @@ export default async function RootLayout({
 
   const session = await auth()
 
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
     <SessionProvider session={session}>
       <html
-        lang="en"
+        lang={locale}
         className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", geist.variable, playfairDisplayHeading.variable)}
       >
           <body className="min-h-full flex flex-col">
-            <Providers>
-              <Toaster />
-              <Modals />
-              {children}
-            </Providers>
+            <NextIntlClientProvider messages={messages}>
+              <Providers>
+                <Toaster />
+                <Modals />
+                {children}
+              </Providers>
+            </NextIntlClientProvider>
           </body>
       </html>
     </SessionProvider>

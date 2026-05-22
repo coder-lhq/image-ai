@@ -3,6 +3,8 @@ import { Crown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
+import { useTranslations } from 'next-intl';
+
 interface TemplateCardProps {
   imageSrc: string;
   title: string;
@@ -24,6 +26,9 @@ export const TemplateCard = ({
   width,
   isPro
 }: TemplateCardProps) => {
+
+  const t = useTranslations();
+  
   return (
     <button
       onClick={onClick}
@@ -55,7 +60,7 @@ export const TemplateCard = ({
       </div>
       <div className="space-y-1">
         <p className="text-sm font-medium">
-          {title}
+          {t(title)}
         </p>
         <p className="text-xs text-muted-foreground opacity-0 group-hover:opacity-75 transition">
           {description}

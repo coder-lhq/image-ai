@@ -13,6 +13,7 @@ import { ActiveTool, Editor } from "@/features/editor/types";
 import { cn } from "@/lib/utils";
 import { UserButton } from '@/features/auth/components/user-button';
 import { useMutationState } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 
 interface SidebarProps {
   id: string,
@@ -22,6 +23,7 @@ interface SidebarProps {
 };
 
 export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarProps) => {
+    const t = useTranslations();
 
     const data = useMutationState({
         filters: {
@@ -58,7 +60,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                 <DropdownMenu modal={false}>
                     <DropdownMenuTrigger asChild>
                         <Button size="sm" variant="ghost">
-                            File
+                            {t("File")}
                             <ChevronDown className="size-4 ml-2" />
                         </Button>
                     </DropdownMenuTrigger>
@@ -68,16 +70,16 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                             className="flex items-center gap-x-2">
                             <CiFileOn className="size-8" />
                             <div>
-                                <p>Open</p>
+                                <p>{t("Open")}</p>
                                 <p className="text-xs text-muted-foreground">
-                                Open a JSON file
+                                {t("Open a JSON file")}
                                 </p>
                             </div>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
                 <Separator orientation="vertical" className="mx-2" />
-                <Hint label="Select" side="bottom" sideOffset={10}>
+                <Hint label={t("Select")} side="bottom" sideOffset={10}>
                     <Button
                         variant="ghost"
                         size="icon"
@@ -87,7 +89,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                         <MousePointerClick className="size-4" />
                     </Button>
                 </Hint>
-                <Hint label="Undo" side="bottom" sideOffset={10}>
+                <Hint label={t("Undo")} side="bottom" sideOffset={10}>
                     <Button
                         disabled={!editor?.canUndo()}
                         variant="ghost"
@@ -97,7 +99,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                         <Undo2 className="size-4" />
                     </Button>
                 </Hint>
-                <Hint label="Redo" side="bottom" sideOffset={10}>
+                <Hint label={t("Redo")} side="bottom" sideOffset={10}>
                     <Button
                         disabled={!editor?.canRedo()}
                         variant="ghost"
@@ -112,7 +114,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                     <div className="flex items-center gap-x-2">
                         <Loader className="size-4 animate-spin text-muted-foreground" />
                         <div className="text-xs text-muted-foreground">
-                        Saving...
+                            {t("Saving") + "..."}
                         </div>
                     </div>
                     )}
@@ -120,7 +122,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                     <div className="flex items-center gap-x-2">
                         <BsCloudSlash className="size-5 text-muted-foreground" />
                         <div className="text-xs text-muted-foreground">
-                        Failed to save
+                            {t("Failed to save")}
                         </div>
                     </div>
                     )}
@@ -128,7 +130,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                     <div className="flex items-center gap-x-2">
                         <BsCloudCheck className="size-5 text-muted-foreground" />
                         <div className="text-xs text-muted-foreground">
-                        Saved
+                            {t("Saved")}
                         </div>
                     </div>
                 )}
@@ -136,7 +138,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                     <DropdownMenu modal={false}>
                         <DropdownMenuTrigger asChild>
                             <Button size="sm" variant="ghost">
-                                Export
+                                {t("Export")}
                                 <Download className="size-4 ml-4" />
                             </Button>
                         </DropdownMenuTrigger>
@@ -149,7 +151,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                                 <div>
                                     <p>JSON</p>
                                     <p className="text-xs text-muted-foreground">
-                                        Save for later editing
+                                        {t("Save for later editing")}
                                     </p>
                                 </div>
                             </DropdownMenuItem>
@@ -161,7 +163,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                                 <div>
                                     <p>PNG</p>
                                     <p className="text-xs text-muted-foreground">
-                                        Best for sharing on the web
+                                        {t("Best for sharing on the web")}
                                     </p>
                                 </div>
                             </DropdownMenuItem>
@@ -173,7 +175,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                                 <div>
                                     <p>JPG</p>
                                     <p className="text-xs text-muted-foreground">
-                                        Best for printing
+                                        {t("Best for printing")}
                                     </p>
                                 </div>
                             </DropdownMenuItem>
@@ -185,7 +187,7 @@ export const Navbar = ({ id, editor, activeTool, onChangeActiveTool }: SidebarPr
                                 <div>
                                     <p>SVG</p>
                                     <p className="text-xs text-muted-foreground">
-                                        Best for editing in vector software
+                                        {t("Best for editing in vector software")}
                                     </p>
                                 </div>
                             </DropdownMenuItem>

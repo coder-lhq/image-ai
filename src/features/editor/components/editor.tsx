@@ -1,7 +1,7 @@
 "use client"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { fabric } from "fabric"
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import _ from 'lodash'
 import { useEditor } from "@/features/editor/hooks/use-editor"
 import { Sidebar } from "@/features/editor/components/sidebar"
@@ -35,8 +35,8 @@ interface EditorProps {
 export const Editor = ({ initialData }: EditorProps) => {
   const { mutate } = useUpdateProject(initialData.id);
 
-  const debouncedSave = useCallback(
-    _.debounce(
+  const debouncedSave = useMemo(
+    () => _.debounce(
       (values: { 
         json: string,
         height: number,
@@ -45,6 +45,12 @@ export const Editor = ({ initialData }: EditorProps) => {
         mutate(values);
     },500),
    [mutate]);
+
+  useEffect(() => {
+    return () => {
+      debouncedSave.cancel();
+    };
+  }, [debouncedSave]);
 
   const [activeTool, setActiveTool] = useState<ActiveTool>("select");
   

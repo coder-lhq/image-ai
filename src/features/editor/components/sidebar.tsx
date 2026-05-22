@@ -12,6 +12,7 @@ import {
 
 import { ActiveTool } from "@/features/editor/types";
 import { SidebarItem } from "@/features/editor/components/sidebar-item";
+import { useTranslations } from 'next-intl';
 
 interface SidebarProps {
   activeTool: ActiveTool;
@@ -19,48 +20,49 @@ interface SidebarProps {
 };
 
 export const Sidebar = ({ activeTool, onChangeActiveTool }: SidebarProps) => {
+    const t = useTranslations();
     return (
         <aside className="bg-white flex flex-colh-full border-r overflow-y-auto">
             <ul className="flex flex-col">
                 <SidebarItem
                     icon={LayoutTemplate}
-                    label="Design"
+                    label={t("Design")}
                     isActive={activeTool === "templates"}
                     onClick={() => onChangeActiveTool("templates")}
                 />
                 <SidebarItem
                     icon={ImageIcon}
-                    label="Image"
+                    label={t("Image")}
                     isActive={activeTool === "images"}
                     onClick={() => onChangeActiveTool("images")}
                 />
                 <SidebarItem
                     icon={Type}
-                    label="Text"
+                    label={t("Text")}
                     isActive={activeTool === "text"}
                     onClick={() => onChangeActiveTool("text")}
                 />
                 <SidebarItem
                     icon={Shapes}
-                    label="Shapes"
+                    label={t("Shape")}
                     isActive={activeTool === "shapes"}
                     onClick={() => onChangeActiveTool("shapes")}
                 />
                 <SidebarItem
                     icon={Pencil}
-                    label="Draw"
+                    label={t("Draw")}
                     isActive={activeTool === "draw"}
                     onClick={() => onChangeActiveTool("draw")}
                 />
                 <SidebarItem
                     icon={Sparkles}
-                    label="AI"
+                    label={t("AI")}
                     isActive={activeTool === "ai"}
                     onClick={() => onChangeActiveTool("ai")}
                 />
                 <SidebarItem
                     icon={Settings}
-                    label="Settings"
+                    label={t("Settings")}
                     isActive={activeTool === "settings"}
                     onClick={() => onChangeActiveTool("settings")}
                 />
